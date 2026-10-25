@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ôn thi CNXHKH – Chương 4</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&display=swap">
+<style>
+:root{--bg:#fff;--ink:#3c3c3c;--mut:#777;--line:#e5e5e5;--card:#f7f7f7;--g:#58cc02;--gd:#58a700;--gl:#d7ffb8;--r:#ff4b4b;--rd:#ea2b2b;--rl:#ffdfe0;--b:#1cb0f6;--y:#ffc800;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#131f24;--ink:#e8eef0;--mut:#8a9aa0;--line:#37464f;--card:#202f36;--gl:#1f3a14;--rl:#3d1d1f}}
+:root[data-theme="dark"]{--bg:#131f24;--ink:#e8eef0;--mut:#8a9aa0;--line:#37464f;--card:#202f36;--gl:#1f3a14;--rl:#3d1d1f}
+*{box-sizing:border-box}html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--ink);font-family:Nunito,"Segoe UI",system-ui,sans-serif;font-weight:700}
+#app{max-width:560px;margin:0 auto;min-height:100%;display:flex;flex-direction:column}
+button{font:inherit;cursor:pointer;border:0;color:inherit}
+button:focus-visible{outline:3px solid var(--b);outline-offset:2px}
+.stats{display:flex;justify-content:space-around;padding:12px;border-bottom:2px solid var(--line);font-weight:900;position:sticky;top:0;background:var(--bg);z-index:5}
+.hero{padding:20px 20px 4px}.hero h1{margin:0;font-size:24px;font-weight:900}.hero p{margin:4px 0 0;color:var(--mut)}
+.path{display:flex;flex-direction:column;align-items:center;gap:6px;padding:18px 16px 40px}
+.unit{width:100%;max-width:340px;text-align:center}
+.node{width:84px;height:84px;border-radius:50%;font-size:34px;background:var(--g);box-shadow:0 7px 0 var(--gd);transition:transform .1s}
+.node:active{transform:translateY(5px);box-shadow:0 2px 0 var(--gd)}
+.node.lock{background:var(--line);box-shadow:0 7px 0 #c4c4c4;cursor:not-allowed;filter:grayscale(1)}
+.node.done{background:var(--y);box-shadow:0 7px 0 #d9a900}
+.unit b{display:block;margin:14px 0 2px;font-size:17px}.unit small{color:var(--mut);font-weight:700}
+.row{margin:10px 0 24px}
+.big{display:block;width:calc(100% - 32px);margin:0 16px 30px;padding:15px;border-radius:16px;background:var(--b);box-shadow:0 5px 0 #1899d6;color:#fff;font-weight:900;font-size:16px}
+.top{display:flex;align-items:center;gap:14px;padding:14px 16px}
+.x{background:none;font-size:24px;color:var(--mut)}
+.bar{flex:1;height:16px;border-radius:9px;background:var(--line);overflow:hidden}.bar i{display:block;height:100%;background:var(--g);border-radius:9px;transition:width .3s}
+.body{flex:1;padding:8px 20px 150px}
+.tag{display:inline-block;padding:3px 10px;border-radius:8px;background:var(--card);color:var(--b);font-size:13px;margin-bottom:12px}
+.body h2{margin:0 0 20px;font-size:21px;line-height:1.35;font-weight:900}
+.opt{display:flex;gap:12px;align-items:center;width:100%;text-align:left;padding:14px;margin-bottom:12px;border:2px solid var(--line);border-bottom-width:4px;border-radius:14px;background:var(--bg);font-size:16px;line-height:1.35}
+.opt kbd{flex:none;width:30px;height:30px;border:2px solid var(--line);border-radius:8px;display:grid;place-items:center;font:inherit;font-size:14px;color:var(--mut)}
+.opt.sel{border-color:var(--b);background:rgba(28,176,246,.12)}.opt.ok{border-color:var(--g);background:var(--gl)}.opt.bad{border-color:var(--r);background:var(--rl)}
+.foot{position:fixed;left:0;right:0;bottom:0;padding:16px 20px calc(16px + env(safe-area-inset-bottom,0px));border-top:2px solid var(--line);background:var(--bg)}
+.foot.ok{background:var(--gl);border-color:transparent}.foot.bad{background:var(--rl);border-color:transparent}
+.foot>div{max-width:520px;margin:0 auto}
+.fb{margin-bottom:12px;font-size:15px;line-height:1.4}.fb strong{display:block;font-size:19px;font-weight:900;margin-bottom:3px}
+.ok .fb{color:var(--gd)}.bad .fb{color:var(--rd)}
+.go{width:100%;padding:14px;border-radius:14px;font-weight:900;font-size:16px;color:#fff;background:var(--g);box-shadow:0 5px 0 var(--gd)}
+.go:disabled{background:var(--line);box-shadow:0 5px 0 #c4c4c4;color:var(--mut);cursor:not-allowed}
+.bad .go{background:var(--r);box-shadow:0 5px 0 var(--rd)}
+.end{text-align:center;padding:60px 24px}.end .e{font-size:72px}.end h1{font-size:28px;margin:10px 0}
+.res{display:flex;gap:12px;justify-content:center;margin:24px 0}.res div{padding:12px 18px;border:2px solid var(--line);border-radius:14px;font-weight:900}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+var U=[
+{n:"Khái niệm và lịch sử dân chủ",i:"🏛️",q:[
+[0,"Thuật ngữ “dân chủ” bắt nguồn từ ngôn ngữ nào?",["Tiếng Hy Lạp cổ","Tiếng La-tinh","Tiếng Pháp cổ","Tiếng Ai Cập cổ"],0,"“Demoskratos” gồm demos (nhân dân) và kratos (quyền lực), ra đời ở Hy Lạp cổ đại khoảng thế kỷ VII–VI TCN."],
+[0,"Nghĩa cốt lõi của dân chủ là gì?",["Quyền lực thuộc về nhân dân","Quyền lực thuộc về nhà nước","Quyền lực thuộc về giai cấp trị vì","Quyền lực thuộc về người lãnh đạo"],0,"Dân chủ nghĩa gốc là “nhân dân cai trị”."],
+[1,"Lịch sử loài người đã trải qua mấy nền dân chủ?",["Ba nền dân chủ","Hai nền dân chủ","Bốn nền dân chủ","Năm nền dân chủ"],0,"Ba nền: chủ nô, tư sản, XHCN. Đừng nhầm với 5 hình thái kinh tế – xã hội."],
+[1,"Thời kỳ phong kiến, xã hội vận hành theo chế độ chính trị nào?",["Độc tài chuyên chế phong kiến","Dân chủ phong kiến","Dân chủ quân chủ","Dân chủ nguyên thủy"],0,"Phong kiến không có nền dân chủ, lịch sử dân chủ bị đứt gãy ở giai đoạn này."],
+[2,"Dân chủ là phạm trù vĩnh viễn khi xét với tư cách nào?",["Một giá trị xã hội, giá trị nhân loại","Một hình thức nhà nước","Một thể chế chính trị","Một nền chuyên chính giai cấp"],0,"Là hình thức nhà nước thì dân chủ là phạm trù lịch sử (tiêu vong cùng nhà nước); là giá trị nhân loại thì tồn tại mãi mãi."]]},
+{n:"Bản chất dân chủ XHCN",i:"⚖️",q:[
+[0,"Nền dân chủ XHCN được phôi thai từ sự kiện nào?",["Công xã Pari năm 1871","Cách mạng Tháng Mười Nga","Cách mạng Tháng Tám 1945","Cách mạng tư sản Pháp"],0,"Phôi thai từ Công xã Pari (1871), chính thức xác lập sau Cách mạng Tháng Mười Nga (1917)."],
+[0,"Nền dân chủ XHCN chính thức được xác lập sau sự kiện nào?",["Cách mạng Tháng Mười Nga 1917","Công xã Pari năm 1871","Cách mạng Tháng Tám 1945","Đại hội VI năm 1986"],0,"Mốc 1917 là mốc xác lập chính thức. Mốc 1871 chỉ là giai đoạn phôi thai."],
+[1,"Cơ sở kinh tế của nền dân chủ XHCN là gì?",["Chế độ sở hữu xã hội về tư liệu sản xuất chủ yếu","Chế độ tư hữu về tư liệu sản xuất chủ yếu","Chế độ sở hữu cá thể về tư liệu sản xuất","Chế độ chiếm hữu tư nhân kiểu tư bản"],0,"Dân chủ XHCN dựa trên công hữu; dân chủ tư sản dựa trên tư hữu tư nhân TBCN."],
+[1,"Nguyên tắc phân phối chủ yếu trong dân chủ XHCN là gì?",["Phân phối theo lao động","Phân phối theo vốn đầu tư","Phân phối theo địa vị xã hội","Phân phối theo thứ bậc quyền lực"],0,"Chủ yếu theo lao động, gắn với chế độ công hữu."],
+[2,"Lênin so sánh dân chủ vô sản với dân chủ tư sản như thế nào?",["Dân chủ hơn gấp triệu lần","Tương đương nhau về bản chất","Chỉ khác nhau về hình thức","Kế thừa nguyên vẹn mọi mặt"],0,"Câu của Lênin: dân chủ vô sản dân chủ hơn gấp triệu lần bất cứ nền dân chủ tư sản nào."]]},
+{n:"Nhà nước XHCN",i:"🏢",q:[
+[1,"Mác và Lênin gọi nhà nước XHCN là gì?",["Nhà nước không còn nguyên nghĩa","Nhà nước mang nguyên nghĩa","Nhà nước vĩnh cửu","Nhà nước phi giai cấp"],0,"Còn gọi là “nửa nhà nước”, vì mục tiêu cuối cùng là tự tiêu vong."],
+[0,"Sự thống trị chính trị của giai cấp công nhân là sự thống trị của ai đối với ai?",["Đa số đối với thiểu số bóc lột","Thiểu số đối với đa số lao động","Một tầng lớp đối với toàn dân","Một dân tộc đối với dân tộc khác"],0,"Đây là điểm khác căn bản với các nhà nước bóc lột."],
+[1,"Chức năng căn bản, chủ yếu và quyết định nhất của nhà nước XHCN là gì?",["Tổ chức và xây dựng","Trấn áp thế lực thù địch","Bảo vệ biên giới quốc gia","Duy trì trật tự nội bộ"],0,"Tổ chức, xây dựng là chức năng quyết định. Đừng chọn trấn áp."],
+[2,"Trong nhà nước XHCN, chức năng trấn áp giữ vai trò nào?",["Phương tiện phục vụ việc xây dựng xã hội mới","Chức năng quyết định hàng đầu","Mục tiêu cuối cùng của nhà nước","Chức năng duy nhất tồn tại"],0,"Trấn áp chỉ là phương tiện, nhiệm vụ trung tâm vẫn là tổ chức xây dựng."],
+[1,"Mục tiêu cuối cùng của nhà nước XHCN là gì?",["Tự tiêu vong khi xã hội không còn giai cấp","Duy trì sự thống trị lâu dài","Mở rộng bộ máy cưỡng chế","Củng cố quyền lực tuyệt đối"],0,"Nhà nước XHCN tiến tới tự giải thể khi không còn giai cấp."]]},
+{n:"Dân chủ và nhà nước XHCN",i:"🔗",q:[
+[1,"Dân chủ XHCN giữ vị trí nào đối với nhà nước XHCN?",["Cơ sở và nền tảng","Công cụ thực thi","Hệ quả phụ thuộc","Phương tiện cưỡng chế"],0,"Dân chủ là cơ sở, nền tảng quyết định tính chất và hoạt động của nhà nước."],
+[1,"Nhà nước XHCN giữ vị trí nào đối với dân chủ XHCN?",["Công cụ thể chế hóa, thực thi, bảo vệ","Cơ sở quyết định bản chất","Hệ thống tư tưởng chủ đạo","Hạt nhân lãnh đạo xã hội"],0,"Nhà nước biến ý chí nhân dân thành Hiến pháp, pháp luật và bảo vệ nền dân chủ."],
+[2,"Khi thiếu dân chủ, nhà nước dễ rơi vào tình trạng nào?",["Tha hóa quyền lực, quan liêu, độc tài","Mở rộng quyền làm chủ của dân","Giảm bớt gánh nặng hành chính","Tăng cường kiểm soát từ nhân dân"],0,"Dân chủ là điều kiện để nhân dân kiểm soát quyền lực nhà nước."],
+[0,"Trong hệ thống chính trị XHCN, ai là hạt nhân lãnh đạo?",["Đảng Cộng sản","Nhà nước","Mặt trận Tổ quốc","Quốc hội"],0,"Đảng là hạt nhân lãnh đạo; Nhà nước là trụ cột, công cụ chủ yếu."],
+[0,"Câu “Dân chủ là dân là chủ và dân làm chủ” là của ai?",["Chủ tịch Hồ Chí Minh","V.I. Lênin","C. Mác","Ph. Ăngghen"],0,"Đây là quan điểm dân chủ của Hồ Chí Minh."]]},
+{n:"Dân chủ XHCN ở Việt Nam",i:"🇻🇳",q:[
+[0,"Chế độ dân chủ nhân dân ở Việt Nam được xác lập sau sự kiện nào?",["Cách mạng Tháng Tám 1945","Đại hội VI năm 1986","Hiến pháp năm 2013","Chiến thắng Điện Biên Phủ"],0,"Mốc xác lập là Cách mạng Tháng Tám năm 1945."],
+[1,"Theo Đảng ta, dân chủ XHCN vừa là mục tiêu, vừa là gì?",["Bản chất và động lực phát triển","Công cụ và phương tiện cưỡng chế","Hình thức và nội dung nhà nước","Điều kiện và giới hạn của quyền lực"],0,"Dân chủ vừa là mục tiêu, vừa là bản chất, vừa là động lực."],
+[0,"Hai hình thức thực hiện dân chủ ở Việt Nam là gì?",["Dân chủ trực tiếp và dân chủ đại diện","Dân chủ tư sản và dân chủ vô sản","Dân chủ chính trị và dân chủ kinh tế","Dân chủ tập trung và dân chủ mở rộng"],0,"Trực tiếp: dân tự quyết định. Đại diện: dân bầu ra Quốc hội, HĐND."],
+[1,"Phương châm dân chủ ở cơ sở hiện nay được diễn đạt đầy đủ như thế nào?",["Dân biết, bàn, làm, kiểm tra, giám sát, thụ hưởng","Dân biết, dân bàn, dân làm, dân kiểm tra","Dân biết, dân bàn, dân làm, dân giám sát","Dân biết, dân làm, dân kiểm tra, thụ hưởng"],0,"Phương châm có 6 vế; hai vế mới bổ sung là giám sát và thụ hưởng."],
+[2,"Người dân đi bỏ phiếu trưng cầu ý dân về một vấn đề lớn. Đây là hình thức nào?",["Dân chủ trực tiếp","Dân chủ đại diện","Dân chủ nguyên thủy","Dân chủ quân sự"],0,"Trưng cầu ý dân là cách dân trực tiếp thể hiện ý chí."]]},
+{n:"Nhà nước pháp quyền XHCN Việt Nam",i:"📜",q:[
+[0,"Nhà nước pháp quyền XHCN Việt Nam được xây dựng theo phương châm nào?",["Của dân, do dân, vì dân","Của Đảng, do Đảng, vì Đảng","Của giai cấp, do giai cấp, vì giai cấp","Của nhà nước, do nhà nước, vì dân"],0,"Tất cả quyền lực nhà nước thuộc về nhân dân."],
+[2,"Quyền lực nhà nước ở Việt Nam được tổ chức theo nguyên tắc nào?",["Thống nhất, có phân công, phối hợp, kiểm soát","Tam quyền phân lập độc lập","Phân chia quyền lực tuyệt đối","Tập trung vào một cơ quan duy nhất"],0,"Việt Nam không theo tam quyền phân lập; quyền lực thống nhất, có phân công, phối hợp và kiểm soát."],
+[0,"Sự lãnh đạo của Đảng Cộng sản Việt Nam được quy định ở điều nào của Hiến pháp 2013?",["Điều 4","Điều 2","Điều 8","Điều 10"],0,"Điều 4 Hiến pháp 2013 quy định vai trò lãnh đạo của Đảng."],
+[1,"Bộ máy nhà nước pháp quyền XHCN Việt Nam tổ chức theo nguyên tắc nào?",["Tập trung dân chủ","Phân quyền tuyệt đối","Tự quản địa phương","Độc lập hoàn toàn các cấp"],0,"Có phân cấp, phân quyền rõ ràng nhưng thống nhất chỉ đạo từ Trung ương."],
+[2,"Quyền hành pháp ở Việt Nam chủ yếu do cơ quan nào thực hiện?",["Chính phủ","Quốc hội","Tòa án nhân dân","Viện kiểm sát nhân dân"],0,"Lập pháp: Quốc hội. Hành pháp: Chính phủ. Tư pháp: Tòa án, Viện kiểm sát."]]}
+];
+var LV=["Nhận biết","Thông hiểu","Vận dụng"],KEY="cnxhkh_c4",S={xp:0,streak:0,last:"",done:[]},L=null,el=document.getElementById("app");
+try{var raw=localStorage.getItem(KEY);if(raw)S=Object.assign(S,JSON.parse(raw))}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+function sh(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
+function today(){return new Date().toISOString().slice(0,10)}
+function home(){
+ L=null;var first=0;while(S.done[first])first++;
+ var h='<div class="stats"><span>🔥 '+S.streak+'</span><span>⚡ '+S.xp+' XP</span><span>✅ '+S.done.filter(Boolean).length+'/'+U.length+'</span></div><div class="hero"><h1>Chương 4: Dân chủ và nhà nước XHCN</h1><p>Hoàn thành từng chặng để mở chặng tiếp theo.</p></div><div class="path">';
+ U.forEach(function(u,i){var st=S.done[i]?"done":i<=first?"":"lock",off=[0,44,64,44,0,-44][i%6];
+  h+='<div class="unit" style="transform:translateX('+off+'px)"><button class="node '+st+'" data-u="'+i+'" aria-label="'+u.n+'"'+(st=="lock"?" disabled":"")+'>'+(S.done[i]?"⭐":st=="lock"?"🔒":u.i)+'</button><b>'+u.n+'</b><small>'+u.q.length+' câu</small></div>'});
+ h+='</div><button class="big" data-mix="1">Luyện tổng hợp 10 câu ngẫu nhiên</button>';
+ el.innerHTML=h}
+function start(qs){L={q:sh(qs),n:qs.length,ok:0,hp:5,sel:null,chk:false,xp:0,first:true,err:0};ask()}
+function ask(){var q=L.q[0];L.ord=sh([0,1,2,3]);L.sel=null;L.chk=false;draw()}
+function draw(msg){
+ var q=L.q[0],h='<div class="top"><button class="x" data-x="1" aria-label="Thoát">✕</button><div class="bar"><i style="width:'+Math.round(L.ok/L.n*100)+'%"></i></div><span>❤️ '+L.hp+'</span></div><div class="body"><span class="tag">'+LV[q[0]]+'</span><h2>'+q[1]+'</h2>';
+ L.ord.forEach(function(oi,k){var c="opt";if(L.chk){if(oi==q[3])c+=" ok";else if(oi==L.sel)c+=" bad"}else if(oi==L.sel)c+=" sel";
+  h+='<button class="'+c+'" data-o="'+oi+'"'+(L.chk?" disabled":"")+'><kbd>'+(k+1)+'</kbd>'+q[2][oi]+'</button>'});
+ h+='</div><div class="foot '+(L.chk?(L.sel==q[3]?"ok":"bad"):"")+'"><div>';
+ if(L.chk)h+='<div class="fb"><strong>'+(L.sel==q[3]?"Chính xác!":"Chưa đúng")+'</strong>'+q[4]+'</div>';
+ h+='<button class="go" data-go="1"'+(L.sel===null?" disabled":"")+'>'+(L.chk?"TIẾP TỤC":"KIỂM TRA")+'</button></div></div>';
+ el.innerHTML=h}
+function go(){
+ var q=L.q[0];
+ if(!L.chk){L.chk=true;if(L.sel==q[3]){L.ok++;L.xp+=10;L.q.shift()}else{L.hp--;L.err++;L.q.push(L.q.shift())}draw();return}
+ if(L.hp<=0)return fail();if(!L.q.length)return win();ask()}
+function fail(){var u=L;L=null;el.innerHTML='<div class="end"><div class="e">💔</div><h1>Hết tim rồi</h1><p>Đọc lại phần giải thích rồi thử lại nhé.</p><button class="big" style="margin:24px 0" data-home="1">Quay lại</button></div>'}
+function win(){
+ var d=today();if(S.last!==d){var y=new Date(Date.now()-864e5).toISOString().slice(0,10);S.streak=S.last===y?S.streak+1:1;S.last=d}
+ S.xp+=L.xp;if(L.unit!==undefined)S.done[L.unit]=true;save();
+ var acc=Math.round(L.n/(L.n+L.err)*100);
+ el.innerHTML='<div class="end"><div class="e">🎉</div><h1>Hoàn thành!</h1><div class="res"><div>⚡ +'+L.xp+' XP</div><div>🎯 '+acc+'%</div><div>🔥 '+S.streak+'</div></div><button class="big" style="margin:0" data-home="1">Tiếp tục</button></div>'}
+el.addEventListener("click",function(e){
+ var t=e.target.closest("button");if(!t)return;var d=t.dataset;
+ if(d.u!==undefined){start(U[+d.u].q);L.unit=+d.u}
+ else if(d.mix){var all=[];U.forEach(function(u){all=all.concat(u.q)});start(sh(all).slice(0,10))}
+ else if(d.o!==undefined&&!L.chk){L.sel=+d.o;draw()}
+ else if(d.go&&L.sel!==null)go();
+ else if(d.x){if(confirm("Thoát bài học? Tiến độ bài này sẽ không được lưu."))home()}
+ else if(d.home)home()});
+document.addEventListener("keydown",function(e){
+ if(!L||!L.q||!L.q.length)return;
+ if(e.key>="1"&&e.key<="4"&&!L.chk){L.sel=L.ord[+e.key-1];draw()}
+ else if(e.key==="Enter"&&L.sel!==null)go()});
+home();
+</script>
+</body>
+</html>
